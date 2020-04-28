@@ -5,3 +5,4 @@ So far we have the general shape of the wheel, but there is a long way to go.
 TO-DO
   * improve shape flexibility.
   * use real screw holes for the lugnuts rather than regular holes.
+  * figure out vector manipulation in OpenSCAD (lol)
