@@ -18,11 +18,13 @@ lnn=5; //number of lug nuts
 
 lnss=0.4; //additional radius around each lug nut saved
 
-sn=7; //number of spokes
+sn=5; //number of spokes
 
 sl=r1-0.7; //spoke length
 sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
+sr=90; //roll angle of the spokes	default is 90 degrees
+sy=90; //yaw angle of the spokes	default is 90 degrees
 
 cor=r1-0.5; //'chunk out' radius. FROM POLYGON POINTS OF OUTER PATTERN
 //hr=(lnfc+lnr+lnss)/2;
@@ -63,9 +65,9 @@ difference(){
 		cylinder(hh,hr,hr,center=true,$fn=c);					//Hub
 		for (i=[1:sn])
 		{
-			rotate(a=[0,90,(fc/sn)*i])//
+			rotate(a=[0,sr,(fc/sn)*i])//
 				translate([-h/2+sh/2+sd,lnh/2,0]) //
-				rotate(a=[90,0,0])
+				rotate(a=[sy,0,0])
 				cube([sh,1,sl],center=true);				//Spokes
 		}
 	}
