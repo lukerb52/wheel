@@ -1,36 +1,36 @@
-// VARIABLES
+//// VARIABLES ////
 
 fc=360; // the number of degrees in a full circle
 
 c=50; //polygon count
 
+// GENERAL SIZE
 h=2; //thickness of the wheel
-
 r1=3; //radius of the wheel
-
 r2=r1;
 
+// LUGNUTS
 lnr=0.2; //lugnut radius
 lnh=h+1; //make sure the holes go through the whole wheel
 lnfc=1; // distance of the lug nuts from the center of the wheel
-
-lnn=5; //number of lug nuts
-
+lnn=6; //number of lug nuts
 lnss=0.4; //additional radius around each lug nut saved
 
-sn=5; //number of spokes
-
+// SPOKES
+sn=4; //number of spokes
 sl=r1-0.7; //spoke length
 sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
 sr=90; //roll angle of the spokes	default is 90 degrees
 sy=90; //yaw angle of the spokes	default is 90 degrees
 
+// HUB
 cor=r1-0.5; //'chunk out' radius. FROM POLYGON POINTS OF OUTER PATTERN
 //hr=(lnfc+lnr+lnss)/2;
 hr=1.5; //hub radius
 hh=1; //hub height
 
+// OUTER PATTERN
 op=[ //outer-wheel pattern where the tire will meet.
 	[0,	0],
 	[1.00*h,	0],
@@ -43,7 +43,7 @@ op=[ //outer-wheel pattern where the tire will meet.
 	[0.05*h,	-0.05]];
 
 
-// GENERATION CODE
+//// GENERATION CODE ////
 
 union(){
 	difference(){
