@@ -6,3 +6,5 @@ TO-DO
   * improve shape flexibility.
   * use real screw holes for the lugnuts rather than regular holes.
   * figure out vector manipulation in OpenSCAD (lol)
+  * automatically filet hard edges
+  * use real units, not just arbitrary ones
