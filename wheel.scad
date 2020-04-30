@@ -31,17 +31,42 @@ hr=1.5; //hub radius
 hh=1; //hub height
 
 // OUTER PATTERN
-op=[ //outer-wheel pattern where the tire will meet.
-	[0,	0],
-	[1.00*h,	0],
-	[0.90*h,	-0.15],
-	[0.50*h,	-0.15],
-	[0.40*h,	-0.40],
-	[0.20*h,	-0.40],
-	[0.15*h,	-0.25],
-	[0.12*h,	-0.25],
-	[0.05*h,	-0.05]];
+//opo=[ //outer-wheel pattern where the tire will meet.
+//	[0,	0],
+//	[1.00*h,	0],
+//	[0.90*h,	-0.15],
+//	[0.50*h,	-0.15],
+//	[0.40*h,	-0.40],
+//	[0.20*h,	-0.40],
+//	[0.15*h,	-0.25],
+//	[0.12*h,	-0.25],
+//	[0.05*h,	-0.05]];
 
+op=[ h*[
+0.00,
+1.00,
+0.90,
+0.50,
+0.40,
+0.20,
+0.15,
+0.15,
+0.05
+],[
+0,
+-0.15,
+-0.15,
+-0.40,
+-0.40,
+-0.25,
+-0.25,
+-0.05] ];
+
+lol=concat(op[0][1],op[1][1]);
+lol2=concat(op[0][2],op[1][2]);
+echo(lol,lol2);
+loli=[lol,lol2];
+echo(loli);
 
 //// GENERATION CODE ////
 
@@ -51,10 +76,10 @@ union(){
 			cylinder(h,r1,r1,center=true,$fn=c); 			//Big Cylinder. Just about all the wheel is cut from this.
 		}
 		//}
-	rotate_extrude(convexity=c,$fn=c)
-		translate([r1,h/2,0])
-		rotate(270)
-		polygon(points=op);			//The outer pattern of the wheel that will be covered by the tire.
+//	rotate_extrude(convexity=c,$fn=c)
+//		translate([r1,h/2,0])
+//		rotate(270)
+//		polygon(points=[op.x,op.y]);			//The outer pattern of the wheel that will be covered by the tire.
 	//}
 cylinder(lnh,cor,cor,center=true,$fn=c);
 }
