@@ -30,79 +30,52 @@ cor=r1-0.5; //'chunk out' radius. FROM POLYGON POINTS OF OUTER PATTERN
 hr=1.5; //hub radius
 hh=1; //hub height
 
-// OUTER PATTERN
-//opo=[ //outer-wheel pattern where the tire will meet.
-//	[0,	0],
-//	[1.00*h,	0],
-//	[0.90*h,	-0.15],
-//	[0.50*h,	-0.15],
-//	[0.40*h,	-0.40],
-//	[0.20*h,	-0.40],
-//	[0.15*h,	-0.25],
-//	[0.12*h,	-0.25],
-//	[0.05*h,	-0.05]];
 
-op=[ h*[
-0.00,
-1.00,
-0.90,
-0.50,
-0.40,
-0.20,
-0.15,
-0.15,
-0.05
-],[
-0,
--0.15,
--0.15,
--0.40,
--0.40,
--0.25,
--0.25,
--0.05] ];
+// OUTER WHEEL
+owt=0.2;
+ow=[ //outer-wheel pattern where the tire will meet.
+	[0,	0],
+	[0.05*h,	-0.05],
+	[0.12*h,	-0.25],
+	[0.15*h,	-0.25],
+	[0.20*h,	-0.40],
+	[0.40*h,	-0.40],
+	[0.50*h,	-0.15],
+	[0.90*h,	-0.15],
+	[1.00*h,	0.00],
+	[1.00*h,	0.00-owt],
+	[0.90*h,	-0.15-owt],
+	[0.50*h,	-0.15-owt],
+	[0.40*h,	-0.40-owt],
+	[0.20*h,	-0.40-owt],
+	[0.15*h,	-0.25-owt],
+	[0.12*h,	-0.25-owt],
+	[0.05*h,	-0.05-owt],
+	[0,	-owt]
+];
 
-lol=concat(op[0][1],op[1][1]);
-lol2=concat(op[0][2],op[1][2]);
-echo(lol,lol2);
-loli=[lol,lol2];
-echo(loli);
+	rotate_extrude(convexity=c,$fn=c)
+	translate([r1,h/2,0])
+rotate(270)
+	polygon(points=ow);			//The outer pattern of the wheel that will be covered by the tire.
 
-//// GENERATION CODE ////
-
-union(){
 	difference(){
 		union(){
-			cylinder(h,r1,r1,center=true,$fn=c); 			//Big Cylinder. Just about all the wheel is cut from this.
+			translate([0,0,hh/2])
+				cylinder(hh,hr,hr,center=true,$fn=c);					//Hub
+			for (i=[1:sn])
+			{
+				rotate(a=[0,sr,(fc/sn)*i])//
+					translate([-h/2+sh/2+sd,lnh/2,0]) //
+					rotate(a=[sy,0,0])
+					cube([sh,1,sl],center=true);				//Spokes
+			}
 		}
-		//}
-//	rotate_extrude(convexity=c,$fn=c)
-//		translate([r1,h/2,0])
-//		rotate(270)
-//		polygon(points=[op.x,op.y]);			//The outer pattern of the wheel that will be covered by the tire.
-	//}
-cylinder(lnh,cor,cor,center=true,$fn=c);
-}
-
-difference(){
-	union(){
-		translate([0,0,hh/2])
-		cylinder(hh,hr,hr,center=true,$fn=c);					//Hub
-		for (i=[1:sn])
+		for (i=[1:lnn])
 		{
-			rotate(a=[0,sr,(fc/sn)*i])//
-				translate([-h/2+sh/2+sd,lnh/2,0]) //
-				rotate(a=[sy,0,0])
-				cube([sh,1,sl],center=true);				//Spokes
+			rotate(a=[0,0,(fc/lnn)*i])
+				translate([lnfc,0,0])
+				cylinder(lnh,lnr,lnr,center=true,$fn=c);		//Lugnut holes
 		}
-	}
-	for (i=[1:lnn])
-	{
-		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,0])
-			cylinder(lnh,lnr,lnr,center=true,$fn=c);		//Lugnut holes
-	}
 
-}
-
-}
+	}
