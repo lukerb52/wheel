@@ -2,7 +2,7 @@
 
 fc=360; // the number of degrees in a full circle
 
-c=50; //polygon count
+c=100; //polygon count
 
 // GENERAL SIZE
 h=2; //thickness of the wheel
@@ -18,7 +18,7 @@ lnss=0.4; //additional radius around each lug nut saved
 
 // SPOKES
 sn=4; //number of spokes
-sl=r1-0.7; //spoke length
+sl=r1-0.4; //spoke length
 sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
 sr=90; //roll angle of the spokes	default is 90 degrees
