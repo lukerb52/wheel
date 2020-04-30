@@ -54,6 +54,8 @@ ow=[ //outer-wheel pattern where the tire will meet.
 	[0,	-owt]
 ];
 
+//// GENERATION CODE ////
+
 	rotate_extrude(convexity=c,$fn=c)
 	translate([r1,h/2,0])
 rotate(270)
