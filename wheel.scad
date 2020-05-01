@@ -13,11 +13,11 @@ r2=r1;
 lnr=0.2; //lugnut radius
 lnh=h+1; //make sure the holes go through the whole wheel
 lnfc=1; // distance of the lug nuts from the center of the wheel
-lnn=6; //number of lug nuts
+lnn=7; //number of lug nuts
 lnss=0.4; //additional radius around each lug nut saved
 
 // SPOKES
-sn=4; //number of spokes
+sn=3; //number of spokes
 sl=r1-0.4; //spoke length
 sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
@@ -30,6 +30,14 @@ cor=r1-0.5; //'chunk out' radius. FROM POLYGON POINTS OF OUTER PATTERN
 //hr=(lnfc+lnr+lnss)/2;
 hr=1.5; //hub radius
 hh=1; //hub height
+
+// Counterbore & Countersink
+//bore=true;
+//sink=false;
+//if (bore==true&&sink=true){sink=false;}
+cbd=0.1;
+csd=0.1;
+csa=45;
 
 
 // OUTER WHEEL
