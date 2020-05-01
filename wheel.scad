@@ -23,6 +23,7 @@ sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
 sr=90; //roll angle of the spokes	default is 90 degrees
 sy=90; //yaw angle of the spokes	default is 90 degrees
+sw=0.7; //spokewidth
 
 // HUB
 cor=r1-0.5; //'chunk out' radius. FROM POLYGON POINTS OF OUTER PATTERN
@@ -70,7 +71,7 @@ rotate(270)
 				rotate(a=[0,sr,(fc/sn)*i])//
 					translate([-h/2+sh/2+sd,lnh/2,0]) //
 					rotate(a=[sy,0,0])
-					cube([sh,1,sl],center=true);				//Spokes
+					cube([sh,sw,sl],center=true);				//Spokes
 			}
 		}
 		for (i=[1:lnn])
