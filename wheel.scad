@@ -35,9 +35,11 @@ hh=1; //hub height
 //bore=true;
 //sink=false;
 //if (bore==true&&sink=true){sink=false;}
-cbd=0.1;
-csd=0.1;
-csa=45;
+cbd=0; //counterbore depth
+cbr=0.3; //counterbore radius
+csd=0.3; //countersink depth
+csa=45; //countersink angle
+cst=hh-(cbd/2); //countersink vertical translation
 
 
 // OUTER WHEEL
@@ -68,18 +70,18 @@ ow=[ //outer-wheel pattern where the tire will meet.
 	rotate_extrude(convexity=c,$fn=c)
 	translate([r1,h/2,0])
 rotate(270)
-	polygon(points=ow);			//The outer pattern of the wheel that will be covered by the tire.
+	polygon(points=ow);								//The outer pattern of the wheel that will be covered by the tire.
 
 	difference(){
 		union(){
 			translate([0,0,hh/2])
-				cylinder(hh,hr,hr,center=true,$fn=c);					//Hub
+				cylinder(hh,hr,hr,center=true,$fn=c);			//Hub
 			for (i=[1:sn])
 			{
 				rotate(a=[0,sr,(fc/sn)*i])//
 					translate([-h/2+sh/2+sd,lnh/2,0]) //
 					rotate(a=[sy,0,0])
-					cube([sh,sw,sl],center=true);				//Spokes
+					cube([sh,sw,sl],center=true);			//Spokes
 			}
 		}
 		for (i=[1:lnn])
@@ -88,5 +90,24 @@ rotate(270)
 				translate([lnfc,0,0])
 				cylinder(lnh,lnr,lnr,center=true,$fn=c);		//Lugnut holes
 		}
+		//}
+if (cbd>0) {
+	for (i=[1:lnn])
+	{
+		rotate(a=[0,0,(fc/lnn)*i])
+			translate([lnfc,0,cst+0.5])
+			cylinder(cbd+1,cbr,cbr,center=true,$fn=c);		//Counterbore
+	}
+}
+if (csd>0) {
+	for (i=[1:lnn])
+	{
+		rotate(a=[0,0,(fc/lnn)*i])
+			translate([lnfc,0,.6])//cst+0.5])
+			rotate_extrude(angle = 360, convexity = 2,$fn=c)
+			polygon([[0,1],[1,1],[0,0]]);				//Countersink NEEDS ADJUSTMENT
 
 	}
+}
+
+}
