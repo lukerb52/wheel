@@ -104,16 +104,16 @@ if (cbd>0) {
 	}
 }
 }
-ex=csd*tan(csa);
-if (csd>0) {
-	for (i=[1:lnn])
-	{
-		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,cst+2])//cst+0.5])
-			rotate_extrude(angle = 360, convexity = 2,$fn=c)
-			polygon([[lnr,csd],[lnr,csd],[lnr,0]]);				//Countersink TEMPORARILY DEPTECATED
+//ex=csd*tan(csa);
+//if (csd>0) {
+//	for (i=[1:lnn])
+//	{
+//		rotate(a=[0,0,(fc/lnn)*i])
+//			translate([lnfc,0,cst+2])//cst+0.5])
+//			rotate_extrude(angle = 360, convexity = 2,$fn=c)
+//			polygon([[lnr,csd],[lnr,csd],[lnr,0]]);				//Countersink TEMPORARILY DEPTECATED
 
-	}
-}
+//	}
+//}
 
 //}
