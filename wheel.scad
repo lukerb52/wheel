@@ -4,6 +4,9 @@ fc=360; // the number of degrees in a full circle
 
 c=100; //polygon count
 
+acl=0.1; //additional cutting length. It is used to avoid visial glitches when gutting right up to an edge
+
+
 // GENERAL SIZE
 h=2; //thickness of the wheel
 r1=3; //radius of the wheel
@@ -36,11 +39,10 @@ hh=1; //hub height
 //if (bore==true&&sink=true){sink=false;}
 cbd=0.2; //counterbore depth
 cbr=0.3; //counterbore radius
-csd=0; //countersink depth
+csd=0.2; //countersink depth
 csa=35; //countersink angle
-cbt=hh-(cbd/2)+hh/2; //countersink vertical translation
-cst=hh-csd; //countersink vertical translation
-
+cbt=h/2-cbd/2+acl/2;//hh-(cbd/2)+hh/2; //countersink vertical translation
+cst=h/2; //countersink vertical translation
 
 
 // OUTER WHEEL
@@ -91,26 +93,26 @@ rotate(270)
 				translate([lnfc,0,0])
 				cylinder(lnh,lnr,lnr,center=true,$fn=c);		//Lugnut holes
 		}
-		//}
+//}
 if (cbd>0) {
 	for (i=[1:lnn])
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
 			translate([lnfc,0,cbt])
-			cylinder(cbd+1,cbr,cbr,center=true,$fn=c);		//Counterbore
+			cylinder(cbd+acl,cbr,cbr,center=true,$fn=c);		//Counterbore
 	}
 }
-//}
+}
 ex=csd*tan(csa);
 if (csd>0) {
 	for (i=[1:lnn])
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,cst])//cst+0.5])
+			translate([lnfc,0,cst+2])//cst+0.5])
 			rotate_extrude(angle = 360, convexity = 2,$fn=c)
-			polygon([[lnr,csd*2],[lnr+ex*2,csd*2],[lnr,0]]);				//Countersink TEMPORARILY DEPTECATED
+			polygon([[lnr,csd],[lnr,csd],[lnr,0]]);				//Countersink TEMPORARILY DEPTECATED
 
 	}
 }
 
-}
+//}
