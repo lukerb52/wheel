@@ -13,7 +13,7 @@ r2=r1;
 lnr=0.2; //lugnut radius
 lnh=h+1; //make sure the holes go through the whole wheel
 lnfc=1; // distance of the lug nuts from the center of the wheel
-lnn=7; //number of lug nuts
+lnn=5; //number of lug nuts
 lnss=0.4; //additional radius around each lug nut saved
 
 // SPOKES
@@ -35,11 +35,13 @@ hh=1; //hub height
 //bore=true;
 //sink=false;
 //if (bore==true&&sink=true){sink=false;}
-cbd=0; //counterbore depth
+cbd=0.3; //counterbore depth
 cbr=0.3; //counterbore radius
-csd=0.3; //countersink depth
-csa=45; //countersink angle
-cst=hh-(cbd/2); //countersink vertical translation
+csd=0.25; //countersink depth
+csa=35; //countersink angle
+cbt=hh-(cbd/2); //countersink vertical translation
+cst=hh-csd; //countersink vertical translation
+
 
 
 // OUTER WHEEL
@@ -95,17 +97,19 @@ if (cbd>0) {
 	for (i=[1:lnn])
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,cst+0.5])
+			translate([lnfc,0,cbt+hh/2])
 			cylinder(cbd+1,cbr,cbr,center=true,$fn=c);		//Counterbore
 	}
 }
+//}
+ex=csd*tan(csa);
 if (csd>0) {
 	for (i=[1:lnn])
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,.6])//cst+0.5])
+			translate([lnfc,0,cst])//cst+0.5])
 			rotate_extrude(angle = 360, convexity = 2,$fn=c)
-			polygon([[0,1],[1,1],[0,0]]);				//Countersink NEEDS ADJUSTMENT
+			polygon([[lnr,csd*2],[lnr+ex*2,csd*2],[lnr,0]]);				//Countersink
 
 	}
 }
