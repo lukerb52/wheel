@@ -26,7 +26,6 @@ sy=90; //yaw angle of the spokes	default is 90 degrees
 sw=0.7; //spokewidth
 
 // HUB
-cor=r1-0.5; //'chunk out' radius. FROM POLYGON POINTS OF OUTER PATTERN
 //hr=(lnfc+lnr+lnss)/2;
 hr=1.5; //hub radius
 hh=1; //hub height
@@ -35,11 +34,11 @@ hh=1; //hub height
 //bore=true;
 //sink=false;
 //if (bore==true&&sink=true){sink=false;}
-cbd=0.3; //counterbore depth
+cbd=0.2; //counterbore depth
 cbr=0.3; //counterbore radius
-csd=0.25; //countersink depth
+csd=0; //countersink depth
 csa=35; //countersink angle
-cbt=hh-(cbd/2); //countersink vertical translation
+cbt=hh-(cbd/2)+hh/2; //countersink vertical translation
 cst=hh-csd; //countersink vertical translation
 
 
@@ -76,7 +75,7 @@ rotate(270)
 
 	difference(){
 		union(){
-			translate([0,0,hh/2])
+			translate([0,0,1-hh+hh/2])
 				cylinder(hh,hr,hr,center=true,$fn=c);			//Hub
 			for (i=[1:sn])
 			{
@@ -97,7 +96,7 @@ if (cbd>0) {
 	for (i=[1:lnn])
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,cbt+hh/2])
+			translate([lnfc,0,cbt])
 			cylinder(cbd+1,cbr,cbr,center=true,$fn=c);		//Counterbore
 	}
 }
@@ -109,7 +108,7 @@ if (csd>0) {
 		rotate(a=[0,0,(fc/lnn)*i])
 			translate([lnfc,0,cst])//cst+0.5])
 			rotate_extrude(angle = 360, convexity = 2,$fn=c)
-			polygon([[lnr,csd*2],[lnr+ex*2,csd*2],[lnr,0]]);				//Countersink
+			polygon([[lnr,csd*2],[lnr+ex*2,csd*2],[lnr,0]]);				//Countersink TEMPORARILY DEPTECATED
 
 	}
 }
