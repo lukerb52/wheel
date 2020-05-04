@@ -12,15 +12,9 @@ h=2; //thickness of the wheel
 r1=3; //radius of the wheel
 r2=r1;
 
-// LUGNUTS
-lnr=0.2; //lugnut radius
-lnh=h+1; //make sure the holes go through the whole wheel
-lnfc=1; // distance of the lug nuts from the center of the wheel
-lnn=5; //number of lug nuts
-lnss=0.4; //additional radius around each lug nut saved
 
 // SPOKES
-sn=3; //number of spokes
+sn=5; //number of spokes
 sl=r1-0.4; //spoke length
 sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
@@ -30,8 +24,15 @@ sw=0.7; //spokewidth
 
 // HUB
 //hr=(lnfc+lnr+lnss)/2;
-hr=1.5; //hub radius
-hh=1; //hub height
+hr=1.2; //hub radius
+hh=0.4; //hub height
+
+// LUGNUTS
+lnr=0.2; //lugnut radius
+lnh=h+1; //make sure the holes go through the whole wheel
+lnfc=hr*(2/3); // distance of the lug nuts from the center of the wheel
+lnn=5; //number of lug nuts
+lnss=0.4; //additional radius around each lug nut saved
 
 // Counterbore & Countersink
 //bore=true;
