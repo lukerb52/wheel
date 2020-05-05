@@ -19,13 +19,15 @@ sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
 sr=90; //roll angle of the spokes	default is 90 degrees
 sy=90; //yaw angle of the spokes	default is 90 degrees
-sw=0.7; //spokewidth
+spi=90; //pitch angle of the spokes	default is 90 degrees
+sw=0.7; //spoke width
+se=1.5; //spoke extension length
 sp=[
 	[0,0],
 	[sw*.25,sh],
 	[sw*.75,sh],
 	[sw,0]
-	];
+];
 
 // HUB
 //hr=(lnfc+lnr+lnss)/2;
@@ -39,7 +41,7 @@ lnfc=hr*(2/3); // distance of the lug nuts from the center of the wheel
 lnn=5; //number of lug nuts
 lnss=0.4; //additional radius around each lug nut saved
 
-// Counterbore & Countersink
+// COUNTERBORE & COUNTERSINK
 //bore=true;
 //sink=false;
 //if (bore==true&&sink=true){sink=false;}
@@ -76,32 +78,36 @@ ow=[ //outer-wheel pattern where the tire will meet.
 
 //// GENERATION CODE ////
 
+// OUTER WHEEL
 	rotate_extrude(convexity=c,$fn=c)
 	translate([r1,h/2,0])
 rotate(270)
-	polygon(points=ow);								//The outer pattern of the wheel that will be covered by the tire.
-
+	polygon(points=ow);
 	difference(){
 		union(){
+			// HUB
 			translate([0,0,1-hh+hh/2])
-				cylinder(hh,hr,hr,center=true,$fn=c);			//Hub
+				cylinder(hh,hr,hr,center=true,$fn=c);
+			// SPOKES
 			for (i=[1:sn])
 			{
-				rotate(a=[0,sr,(fc/sn)*i])//
-					translate([-h/2+sh/2+sd,sl/2,-sw/2]) //
-					rotate(a=[sy,270,0])
-					cube([sh,sw,sl],center=true);			//Spokes
-					//linear_extrude(sl,center=true)
-					//polygon(points=sp);		//Spokes
+				rotate(a=[0,0,(fc/sn)*i])//
+					translate([0,se,h/2-sh+sd])//-h/2+sh/2+sd,sl/2,-sw/2]) //
+					//cube([sw,sl,sh],center=true);
+					rotate(a=[90,0,-15])
+					linear_extrude(sl,center=true)
+					polygon(points=sp);
 			}
 		}
+		// LUGNUT HOLES
 		for (i=[1:lnn])
 		{
 			rotate(a=[0,0,(fc/lnn)*i])
 				translate([lnfc,0,0])
-				cylinder(lnh,lnr,lnr,center=true,$fn=c);		//Lugnut holes
+				cylinder(lnh,lnr,lnr,center=true,$fn=c);
 		}
-//}
+		//}
+		// COUNTERBORE
 if (cbd>0) {
 	for (i=[1:lnn])
 	{
