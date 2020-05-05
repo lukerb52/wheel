@@ -17,9 +17,9 @@ sn=5; //number of spokes
 sl=r1-0.4; //spoke length
 sh=0.2; //spoke height
 sd=0; //spoke distance from 'top' of wheel
-sr=90; //roll angle of the spokes	default is 90 degrees
-sy=90; //yaw angle of the spokes	default is 90 degrees
-spi=90; //pitch angle of the spokes	default is 90 degrees
+sr=0; //roll angle of the spokes
+sy=0; //yaw angle of the spokes
+spi=0; //pitch angle of the spokes
 sw=0.7; //spoke width
 se=1.5; //spoke extension length
 sp=[
@@ -35,10 +35,10 @@ hr=1.2; //hub radius
 hh=0.4; //hub height
 
 // LUGNUTS
+lnn=5; //number of lug nuts
 lnr=0.2; //lugnut radius
 lnh=h+1; //make sure the holes go through the whole wheel
 lnfc=hr*(2/3); // distance of the lug nuts from the center of the wheel
-lnn=5; //number of lug nuts
 lnss=0.4; //additional radius around each lug nut saved
 
 // COUNTERBORE & COUNTERSINK
@@ -89,12 +89,12 @@ rotate(270)
 			translate([0,0,1-hh+hh/2])
 				cylinder(hh,hr,hr,center=true,$fn=c);
 			// SPOKES
-			for (i=[1:sn])
+			for (i=[0:sn-1])
 			{
-				rotate(a=[0,0,(fc/sn)*i])//
-					translate([0,se,h/2-sh+sd])//-h/2+sh/2+sd,sl/2,-sw/2]) //
-					//cube([sw,sl,sh],center=true);
-					rotate(a=[90,0,-15])
+				rotate([0,0,(fc/sn)*i])
+					translate([se,0,h/2-sh/2])
+					rotate([spi+90,sr,sy+90])
+					translate([-sw/2,-sh/2,0])
 					linear_extrude(sl,center=true)
 					polygon(points=sp);
 			}
@@ -113,7 +113,7 @@ if (cbd>0) {
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
 			translate([lnfc,0,cbt])
-			cylinder(cbd+acl,cbr,cbr,center=true,$fn=c);		//Counterbore
+			cylinder(cbd+acl,cbr,cbr,center=true,$fn=c);
 	}
 }
 }
