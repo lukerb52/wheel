@@ -4,14 +4,13 @@ fc=360; // the number of degrees in a full circle
 
 c=100; //polygon count
 
-acl=0.1; //additional cutting length. It is used to avoid visial glitches when gutting right up to an edge
+acl=0.3; //additional cutting length. It is used to avoid visial glitches when gutting right up to an edge
 
 
 // GENERAL SIZE
 h=2; //thickness of the wheel
 r1=3; //radius of the wheel
 r2=r1;
-
 
 // SPOKES
 sn=5; //number of spokes
@@ -89,11 +88,11 @@ rotate(270)
 			for (i=[1:sn])
 			{
 				rotate(a=[0,sr,(fc/sn)*i])//
-					translate([-h/2+sh/2+sd,lnh/2,0]) //
+					translate([-h/2+sh/2+sd,sl/2,-sw/2]) //
 					rotate(a=[sy,270,0])
-					//cube([sh,sw,sl],center=true);			//Spokes
-					linear_extrude(sl,center=true)
-					polygon(points=sp);
+					cube([sh,sw,sl],center=true);			//Spokes
+					//linear_extrude(sl,center=true)
+					//polygon(points=sp);		//Spokes
 			}
 		}
 		for (i=[1:lnn])
