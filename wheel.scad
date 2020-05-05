@@ -16,11 +16,11 @@ r2=r1;
 sn=5; //number of spokes
 sl=r1-0.4; //spoke length
 sh=0.2; //spoke height
-sd=0; //spoke distance from 'top' of wheel
+sd=0; //spoke distance from top of hub
+sed=0; //the distance from the top of the hub
 sr=0; //roll angle of the spokes
 sy=0; //yaw angle of the spokes
-spi=0; //pitch angle of the spokes
-sw=0.7; //spoke width
+sw=0.8; //spoke width
 se=1.5; //spoke extension length
 sp=[
 	[0,0],
@@ -30,9 +30,9 @@ sp=[
 ];
 
 // HUB
-//hr=(lnfc+lnr+lnss)/2;
 hr=1.2; //hub radius
 hh=0.4; //hub height
+hd=0.5; //hub distance from the top/edge of the wheel
 
 // LUGNUTS
 lnn=5; //number of lug nuts
@@ -86,14 +86,14 @@ rotate(270)
 	difference(){
 		union(){
 			// HUB
-			translate([0,0,1-hh+hh/2])
+			translate([0,0,h/2-hh+hh/2-hd])
 				cylinder(hh,hr,hr,center=true,$fn=c);
 			// SPOKES
 			for (i=[0:sn-1])
 			{
-				rotate([0,0,(fc/sn)*i])
-					translate([se,0,h/2-sh/2])
-					rotate([spi+90,sr,sy+90])
+				rotate([0,-10,(fc/sn)*i])
+					translate([se,0,h/2-sh/2-hd  ])
+					rotate([90,sr,sy+90])
 					translate([-sw/2,-sh/2,0])
 					linear_extrude(sl,center=true)
 					polygon(points=sp);
@@ -103,7 +103,7 @@ rotate(270)
 		for (i=[1:lnn])
 		{
 			rotate(a=[0,0,(fc/lnn)*i])
-				translate([lnfc,0,0])
+				translate([lnfc,0,-hd])
 				cylinder(lnh,lnr,lnr,center=true,$fn=c);
 		}
 		//}
@@ -112,7 +112,7 @@ if (cbd>0) {
 	for (i=[1:lnn])
 	{
 		rotate(a=[0,0,(fc/lnn)*i])
-			translate([lnfc,0,cbt])
+			translate([lnfc,0,cbt-hd])
 			cylinder(cbd+acl,cbr,cbr,center=true,$fn=c);
 	}
 }
