@@ -12,6 +12,11 @@ h=2; //thickness of the wheel
 r1=3; //radius of the wheel
 r2=r1;
 
+// HUB
+hr=1.2; //hub radius
+hh=0.4; //hub height
+hd=0; //hub distance from the top/edge of the wheel
+
 // SPOKES
 sn=5; //number of spokes
 sl=r1-0.4; //spoke length
@@ -28,11 +33,7 @@ sp=[
 	[sw*.75,sh],
 	[sw,0]
 ];
-
-// HUB
-hr=1.2; //hub radius
-hh=0.4; //hub height
-hd=0.5; //hub distance from the top/edge of the wheel
+sfc=hr*(3/4);
 
 // LUGNUTS
 lnn=5; //number of lug nuts
@@ -89,12 +90,13 @@ rotate(270)
 			translate([0,0,h/2-hh+hh/2-hd])
 				cylinder(hh,hr,hr,center=true,$fn=c);
 			// SPOKES
+			sa=90-atan(sfc/hd); //spoke angle
 			for (i=[0:sn-1])
 			{
-				rotate([0,-10,(fc/sn)*i])
-					translate([se,0,h/2-sh/2-hd  ])
-					rotate([90,sr,sy+90])
-					translate([-sw/2,-sh/2,0])
+				rotate([0,0,(fc/sn)*i])
+					translate([se,0,h/2-sh/2-hd])
+					rotate([90-sa,sr,sy+90])
+					translate([-sw/2,-sh/2,sfc])
 					linear_extrude(sl,center=true)
 					polygon(points=sp);
 			}
